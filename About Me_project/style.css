@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Enoch Opong — About Me page
+   Ketsia Victoire— About Me page
    Stylesheet: style.css
    This file controls all the colors, spacing, and layout for index.html.
    Comments explain what each section/rule does.
@@ -31,7 +31,7 @@
    -------------------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --navy: #14406f;
+    --green: #066338;
     --navy-dark: #0b2440;
     --text: #e7ebf2;
     --muted: #a6b0c0;
@@ -178,7 +178,7 @@ main.content h3 {
 
 /* Profile photo + its italic caption underneath */
 .profile-photo {
-  max-width: 260px;
+  max-width: 300px;
   border-radius: 8px;
   display: block;
   margin-bottom: 0.5rem;
