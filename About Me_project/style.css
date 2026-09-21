@@ -1,0 +1,288 @@
+/* ==========================================================================
+   Enoch Opong — About Me page
+   Stylesheet: style.css
+   This file controls all the colors, spacing, and layout for index.html.
+   Comments explain what each section/rule does.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS VARIABLES (a.k.a. "custom properties")
+   These are like labeled paint cans — define a color/value once here,
+   then reuse it everywhere with var(--name) instead of retyping it.
+   Makes it easy to re-theme the whole page by changing values in ONE place.
+   -------------------------------------------------------------------------- */
+:root {
+  --navy: #0b2f5c;        /* main brand color: header background, headings */
+  --navy-dark: #082444;   /* darker navy: footer background */
+  --text: #1c2430;        /* main body text color */
+  --muted: #5a6474;       /* softer gray text for captions/subtext */
+  --border: #e3e7ee;      /* light gray for borders/dividers */
+  --bg-soft: #eef2f8;     /* very light background for sidebar/table stripes */
+  --bg: #ffffff;          /* main page background */
+  --card-bg: #ffffff;     /* background for the interest "cards" */
+}
+
+/* --------------------------------------------------------------------------
+   2. DARK MODE SUPPORT
+   prefers-color-scheme automatically detects if the visitor's device/browser
+   is set to dark mode, and swaps the variable values above for darker ones.
+   :root:not([data-theme="light"]) means: "apply this UNLESS someone has
+   manually forced light mode" — this lets us support a manual toggle too.
+   -------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --navy: #14406f;
+    --navy-dark: #0b2440;
+    --text: #e7ebf2;
+    --muted: #a6b0c0;
+    --border: #2a3446;
+    --bg-soft: #16202f;
+    --bg: #0e1622;
+    --card-bg: #131d2c;
+  }
+}
+/* Manual override: if data-theme="dark" is set directly on <html>, use dark
+   colors even if the device itself is in light mode. */
+:root[data-theme="dark"] {
+  --navy: #14406f;
+  --navy-dark: #0b2440;
+  --text: #e7ebf2;
+  --muted: #a6b0c0;
+  --border: #2a3446;
+  --bg-soft: #16202f;
+  --bg: #0e1622;
+  --card-bg: #131d2c;
+}
+
+/* --------------------------------------------------------------------------
+   3. GLOBAL / RESET STYLES
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box; /* padding/border are included in an element's
+                              width instead of adding extra size on top */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif; /* uses the device's native system font */
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   4. TOP HEADER (name, title, nav links)
+   Uses Flexbox to place the title on the left and nav links on the right,
+   and wraps them onto a new line automatically on small screens.
+   -------------------------------------------------------------------------- */
+header.top {
+  background: var(--navy);
+  color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-wrap: wrap;              /* let items drop to a new row if too narrow */
+  justify-content: space-between; /* push name left, nav right */
+  align-items: flex-start;
+  gap: 1rem;
+}
+header.top h1 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.9rem;
+}
+header.top p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #cfe0f5;
+  max-width: 620px;
+}
+nav {
+  display: flex;
+  gap: 1.5rem;      /* even spacing between nav links, no need for margins */
+  flex-wrap: wrap;
+  padding-top: 0.35rem;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+nav a:hover {
+  text-decoration: underline; /* small hint that it's clickable */
+}
+
+/* --------------------------------------------------------------------------
+   5. PAGE LAYOUT — CSS GRID
+   This is the "grid-template-areas" trick: we name two regions, "sidebar"
+   and "main", then place them in a 2-column grid. Naming areas makes the
+   layout easy to read at a glance instead of counting rows/columns.
+   -------------------------------------------------------------------------- */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr; /* sidebar fixed width, main fills rest */
+  grid-template-areas: "sidebar main";
+  min-height: 60vh;
+}
+
+/* On small screens (phones), stack sidebar on top of main content instead
+   of side-by-side, since there isn't room for two columns. */
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "sidebar" "main";
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. SIDEBAR ("Fun Fact" box)
+   -------------------------------------------------------------------------- */
+aside.sidebar {
+  grid-area: sidebar; /* tells the grid: "put me in the 'sidebar' slot" */
+  background: var(--bg-soft);
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border);
+}
+aside.sidebar h2 {
+  color: var(--navy);
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+aside.sidebar p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55; /* extra line spacing improves readability */
+}
+
+/* --------------------------------------------------------------------------
+   7. MAIN CONTENT AREA
+   -------------------------------------------------------------------------- */
+main.content {
+  grid-area: main; /* fills the "main" slot defined above */
+  padding: 2.5rem 3rem;
+}
+@media (max-width: 720px) {
+  main.content {
+    padding: 2rem 1.25rem; /* less side padding on small screens */
+  }
+}
+main.content h2 {
+  color: var(--navy);
+  font-size: 1.6rem;
+  margin-top: 0;
+}
+main.content h3 {
+  color: var(--navy);
+  font-size: 1.35rem;
+  margin-top: 2.5rem;
+}
+
+/* Profile photo + its italic caption underneath */
+.profile-photo {
+  max-width: 260px;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.caption {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 0;
+}
+
+/* Bio paragraph text */
+.bio {
+  line-height: 1.7;
+  max-width: 68ch; /* "ch" = width of a character; keeps lines from
+                       getting too wide/hard to read on big screens */
+}
+code {
+  background: var(--bg-soft);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* --------------------------------------------------------------------------
+   8. QUICK FACTS TABLE
+   -------------------------------------------------------------------------- */
+table.facts {
+  width: 100%;
+  border-collapse: collapse; /* removes double borders between cells */
+  margin-top: 1rem;
+  overflow-x: auto; /* lets the table scroll sideways on tiny screens
+                        instead of squashing/breaking the layout */
+  display: block;
+}
+table.facts thead,
+table.facts tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* keeps column widths even across rows */
+}
+table.facts th,
+table.facts td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+table.facts th {
+  background: var(--navy);
+  color: white;
+}
+table.facts tr:nth-child(even) td {
+  background: var(--bg-soft); /* "zebra striping" — alternating row colors
+                                  make wide tables easier to scan */
+}
+.facts-caption {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. INTEREST CARDS — Flexbox/Grid card layout
+   -------------------------------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+@media (max-width: 560px) {
+  .cards {
+    grid-template-columns: 1fr; /* stack into 1 column on phones */
+  }
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem 1.3rem;
+}
+.card h4 {
+  margin: 0 0 0.4rem 0;
+  color: var(--navy);
+  font-size: 1.05rem;
+}
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   10. FOOTER
+   -------------------------------------------------------------------------- */
+footer.bottom {
+  background: var(--navy-dark);
+  color: #cfe0f5;
+  padding: 1.5rem 2rem;
+  font-size: 0.88rem;
+  margin-top: 2rem;
+}
+footer.bottom a {
+  color: #8fc4ff;
+}
