@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Ketsia Victoire— About Me page
+   Ketsia Victoire — About Me page
    Stylesheet: style.css
    This file controls all the colors, spacing, and layout for index.html.
    Comments explain what each section/rule does.
@@ -12,11 +12,11 @@
    Makes it easy to re-theme the whole page by changing values in ONE place.
    -------------------------------------------------------------------------- */
 :root {
-  --navy: #0b2f5c;        /* main brand color: header background, headings */
-  --navy-dark: #082444;   /* darker navy: footer background */
-  --text: #1c2430;        /* main body text color */
+  --green: #066338;        /* main brand color: header background, headings */
+  --dark-green: #084425;   /* darker navy: footer background */
+  --text: #010813;        /* main body text color */
   --muted: #5a6474;       /* softer gray text for captions/subtext */
-  --border: #e3e7ee;      /* light gray for borders/dividers */
+  --border: #6b7d9d;      /* light gray for borders/dividers */
   --bg-soft: #eef2f8;     /* very light background for sidebar/table stripes */
   --bg: #ffffff;          /* main page background */
   --card-bg: #ffffff;     /* background for the interest "cards" */
@@ -31,9 +31,9 @@
    -------------------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --green: #066338;
-    --navy-dark: #0b2440;
-    --text: #e7ebf2;
+    --green: #158440;
+    --light-green: #0db844;
+    --text: #6a7993;
     --muted: #a6b0c0;
     --border: #2a3446;
     --bg-soft: #16202f;
@@ -76,7 +76,7 @@ body {
    and wraps them onto a new line automatically on small screens.
    -------------------------------------------------------------------------- */
 header.top {
-  background: var(--navy);
+  background: var(--green);
   color: white;
   padding: 1.5rem 2rem;
   display: flex;
@@ -178,8 +178,8 @@ main.content h3 {
 
 /* Profile photo + its italic caption underneath */
 .profile-photo {
-  max-width: 300px;
-  border-radius: 8px;
+  max-width: 120px;
+  border-radius: 5px;
   display: block;
   margin-bottom: 0.5rem;
 }
@@ -228,8 +228,8 @@ table.facts td {
   font-size: 0.95rem;
 }
 table.facts th {
-  background: var(--navy);
-  color: white;
+  background: var(--yellow);
+  color: black;
 }
 table.facts tr:nth-child(even) td {
   background: var(--bg-soft); /* "zebra striping" — alternating row colors
@@ -277,12 +277,12 @@ table.facts tr:nth-child(even) td {
    10. FOOTER
    -------------------------------------------------------------------------- */
 footer.bottom {
-  background: var(--navy-dark);
-  color: #cfe0f5;
+  background: var(--red);
+  color: #953535;
   padding: 1.5rem 2rem;
   font-size: 0.88rem;
   margin-top: 2rem;
 }
 footer.bottom a {
-  color: #8fc4ff;
+  color: #5e7a12;
 }
